@@ -6,3 +6,9 @@ spring:
         url: jdbc:mysql://127.0.0.1:3306/basic_jdbc
         username: root
         password: ghtjq2959@
+
+
+logging:
+    level:
+        com.zaxxer.hikari.HikariConfig: DEBUG
+        com.zaxxer.hikari: TRACE
