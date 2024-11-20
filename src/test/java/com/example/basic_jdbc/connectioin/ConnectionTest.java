@@ -1,5 +1,6 @@
 package com.example.basic_jdbc.connectioin;
 
+import com.example.basic_jdbc.util.ConnectionUtil;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -9,12 +10,12 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import static com.example.basic_jdbc.util.ConnectionUtil.*;
+
 @Slf4j
 public class ConnectionTest {
 
-    public static final String URL = "jdbc:mysql://127.0.0.1:3306/basic_jdbc";
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "ghtjq2959@";
+
 
     @Test
     void dataSourceDriverManager() throws SQLException {
