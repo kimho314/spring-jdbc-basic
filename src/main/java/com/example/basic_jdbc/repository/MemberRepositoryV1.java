@@ -22,10 +22,30 @@ public class MemberRepositoryV1 {
         Connection conn = null;
         PreparedStatement pstmt = null;
 
-        try{
+        try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, memberId);
+            pstmt.executeUpdate();
+        }
+        catch (SQLException e) {
+            log.error("db error", e);
+            throw e;
+        }
+        finally {
+            close(conn, pstmt, null);
+        }
+    }
+
+    public void deleteAll() throws SQLException {
+        String sql = "delete from member";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
             pstmt.executeUpdate();
         }
         catch (SQLException e) {
@@ -43,7 +63,7 @@ public class MemberRepositoryV1 {
         Connection conn = null;
         PreparedStatement pstmt = null;
 
-        try{
+        try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, money);
@@ -67,20 +87,20 @@ public class MemberRepositoryV1 {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
-        try{
+        try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, memberId);
 
             rs = pstmt.executeQuery();
 
-            if(rs.next()){
+            if (rs.next()) {
                 Member member = new Member();
                 member.setMemberId(rs.getString("member_id"));
                 member.setMoney(rs.getInt("money"));
                 return member;
             }
-            else{
+            else {
                 throw new NoSuchElementException("member not found memberId=" + memberId);
             }
         }
@@ -98,7 +118,7 @@ public class MemberRepositoryV1 {
         Connection conn = null;
         PreparedStatement pstmt = null;
 
-        try{
+        try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, member.getMemberId());
@@ -109,7 +129,8 @@ public class MemberRepositoryV1 {
         catch (SQLException e) {
             log.error("db error", e);
             throw e;
-        } finally {
+        }
+        finally {
             close(conn, pstmt, null);
         }
     }
