@@ -2,7 +2,7 @@ package com.example.basic_jdbc.service;
 
 import com.example.basic_jdbc.domain.Member;
 import com.example.basic_jdbc.repository.MemberRepository;
-import com.example.basic_jdbc.repository.MemberRepositoryV4_1;
+import com.example.basic_jdbc.repository.MemberRepositoryV4_2;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ThrowableAssert;
@@ -42,7 +42,7 @@ class MemberServiceV4Test {
 
         @Bean
         MemberRepository memberRepositoryV4() {
-            return new MemberRepositoryV4_1(dataSource);
+            return new MemberRepositoryV4_2(dataSource);
         }
 
         @Bean
