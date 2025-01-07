@@ -1,2 +1,3 @@
 rootProject.name = 'basic_jdbc'
 include 'basic_db'
+include 'item_service'
