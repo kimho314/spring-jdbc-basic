@@ -32,7 +32,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
     @Override
     public Item save(Item item) {
-        String sql = "insert into item (item_name, price, quantity) values (?,?,?)";
+        String sql = "insert into item(item_name, price, quantity) values (?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
@@ -59,7 +59,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
     @Override
     public Optional<Item> findById(Long id) {
-        String sql = "select id, item_name, price, quantity where id = ?";
+        String sql = "select id, item_name, price, quantity from item where id = ?";
         try{
             Item item = jdbcTemplate.queryForObject(sql, itemRowMapper(), id);
             return Optional.ofNullable(item);
@@ -84,7 +84,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
         String itemName = cond.getItemName();
         Integer maxPrice = cond.getMaxPrice();
 
-        String sql = "select id, item_name, price, quantity, from item";
+        String sql = "select id, item_name, price, quantity from item";
         // 동적 쿼리
         if(StringUtils.hasText(itemName) || maxPrice != null){
             sql += " where";

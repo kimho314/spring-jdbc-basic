@@ -1,5 +1,6 @@
 package com.example.item_service;
 
+import com.example.item_service.config.JdbcTemplateV1Config;
 import com.example.item_service.config.MemoryConfig;
 import com.example.item_service.repository.ItemRepository;
 import org.springframework.boot.SpringApplication;
@@ -8,7 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 
-@Import(MemoryConfig.class)
+//@Import(MemoryConfig.class)
+@Import(JdbcTemplateV1Config.class)
 @SpringBootApplication(scanBasePackages = "com.example.item_service.web")
 public class ItemServiceApplication {
 
@@ -16,9 +18,9 @@ public class ItemServiceApplication {
         SpringApplication.run(ItemServiceApplication.class, args);
     }
 
-    @Bean
-    @Profile("local")
-    public TestDataInit testDataInit(ItemRepository itemRepository) {
-        return new TestDataInit(itemRepository);
-    }
+//    @Bean
+//    @Profile("local")
+//    public TestDataInit testDataInit(ItemRepository itemRepository) {
+//        return new TestDataInit(itemRepository);
+//    }
 }
