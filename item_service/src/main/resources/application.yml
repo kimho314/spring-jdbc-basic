@@ -3,3 +3,11 @@ spring:
     name: item_service
   profiles:
     active: local
+  datasource:
+    url: jdbc:h2:mem://localhost/~/test
+    username: sa
+
+
+logging:
+  level:
+    org.springframework.jdbc: debug
