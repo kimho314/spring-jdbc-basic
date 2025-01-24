@@ -5,9 +5,13 @@ import com.example.item_service.repository.ItemSearchCond;
 import com.example.item_service.repository.ItemUpdateDto;
 import com.example.item_service.repository.memory.MemoryItemRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.List;
 
@@ -19,12 +23,24 @@ public class ItemRepositoryTest {
     @Autowired
     ItemRepository itemRepository;
 
+    @Autowired
+    PlatformTransactionManager transactionManager;
+    TransactionStatus status;
+
+    @BeforeEach
+    void init() {
+        status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+    }
+
     @AfterEach
     void afterEach() {
         //MemoryItemRepository 의 경우 제한적으로 사용
         if (itemRepository instanceof MemoryItemRepository) {
             ((MemoryItemRepository) itemRepository).clearStore();
         }
+
+        //transaction rollback
+        transactionManager.rollback(status);
     }
 
     @Test
