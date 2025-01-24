@@ -1,10 +1,17 @@
 package com.example.item_service;
 
 import com.example.item_service.config.JdbcTemplateV3Config;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.sql.DataSource;
+
+@Slf4j
 //@Import(MemoryConfig.class)
 //@Import(JdbcTemplateV1Config.class)
 //@Import(JdbcTemplateV2Config.class)
@@ -21,4 +28,16 @@ public class ItemServiceApplication {
 //    public TestDataInit testDataInit(ItemRepository itemRepository) {
 //        return new TestDataInit(itemRepository);
 //    }
+
+    @Bean
+    @Profile("test")
+    public DataSource dataSource() {
+        log.info("===== initializing database =====");
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.h2.Driver");
+        dataSource.setUrl("jdbc:h2:mem:db;DB_CLOSE_DELAY=-1");
+        dataSource.setUsername("sa");
+        dataSource.setPassword("");
+        return dataSource;
+    }
 }
