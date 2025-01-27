@@ -1,6 +1,6 @@
 package com.example.item_service;
 
-import com.example.item_service.config.JdbcTemplateV3Config;
+import com.example.item_service.config.JpaConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +15,8 @@ import javax.sql.DataSource;
 //@Import(MemoryConfig.class)
 //@Import(JdbcTemplateV1Config.class)
 //@Import(JdbcTemplateV2Config.class)
-@Import(JdbcTemplateV3Config.class)
+//@Import(JdbcTemplateV3Config.class)
+@Import(JpaConfig.class)
 @SpringBootApplication(scanBasePackages = "com.example.item_service.web")
 public class ItemServiceApplication {
 

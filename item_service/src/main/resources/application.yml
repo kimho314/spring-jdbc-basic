@@ -17,3 +17,5 @@ spring:
 logging:
   level:
     org.springframework.jdbc: debug
+    org.hibernate.sql: debug # hibernate sql 확인 가능
+    org.hibernate.type.descriptor.sql.BasicBinder: trace # parameter biding 확인 가능
