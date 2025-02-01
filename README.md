@@ -1,1 +1,1 @@
-# Summary of study n Spring DB 
+# Summary of study in Spring DB 
