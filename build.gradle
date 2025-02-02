@@ -24,9 +24,7 @@ subprojects {
         mavenCentral()
     }
 
-    dependencies {
-
-    }
+    dependencies {}
 }
 
 bootJar.enabled = false
