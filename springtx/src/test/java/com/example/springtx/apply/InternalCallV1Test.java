@@ -28,6 +28,7 @@ public class InternalCallV1Test {
 
     @Test
     void externalCall() {
+        // exteranl에 transaction이 걸려있지 않고 internal method에 transaction이 걸려있엇 transaction이 작동하지 않는다.
         callService.external();
     }
 
