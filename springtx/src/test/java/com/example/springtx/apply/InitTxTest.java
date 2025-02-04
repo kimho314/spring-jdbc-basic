@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +50,14 @@ public class InitTxTest {
         public void initV2() {
             boolean isActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("Hello application ready tx active={}", isActive);
+        }
+
+        // ApplicationStartedEvent > ApplicationReadyEvent의 순서로 event 발생한다.
+        @EventListener(ApplicationStartedEvent.class)
+        @Transactional
+        public void initV3() {
+            boolean isActive = TransactionSynchronizationManager.isActualTransactionActive();
+            log.info("Hello application started tx active={}", isActive);
         }
     }
 }
