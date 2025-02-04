@@ -8,3 +8,4 @@ logging:
     org.springframework.jdbc.datasource.DataSourceTransactionManager: debug
     org.springframework.orm.jpa.JpaTransactionManager: debug
     org.hibernate.resource.transaction: debug
+    org.hibernate.SQL: debug
