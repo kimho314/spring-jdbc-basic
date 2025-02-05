@@ -48,4 +48,17 @@ public class BasicTxTest {
         txManager.commit(status);
         log.info("트랜잭션 커밋 완료");
     }
+
+    @Test
+    void double_commit() {
+        log.info("트랜잭션1 시작");
+        TransactionStatus status1 = txManager.getTransaction(new DefaultTransactionDefinition());
+        log.info("트랜잭션1 커밋");
+        txManager.commit(status1);
+
+        log.info("트랜잭션2 시작");
+        TransactionStatus status2 = txManager.getTransaction(new DefaultTransactionDefinition());
+        log.info("트랜잭션2 커밋");
+        txManager.commit(status2);
+    }
 }
