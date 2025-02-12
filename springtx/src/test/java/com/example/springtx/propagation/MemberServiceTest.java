@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.UnexpectedRollbackException;
 
 @Slf4j
 @SpringBootTest
@@ -103,6 +104,45 @@ class MemberServiceTest {
         //then
         // 모든 데이터가 롤백 된다.
         Assertions.assertThat(memberRepository.find(userName).isPresent()).isFalse();
+        Assertions.assertThat(logRepository.find(userName).isPresent()).isFalse();
+    }
+
+    /**
+     * memberService        @Transactional:on
+     * memberRepository     @Transactional:on
+     * logRepository        @Transactional:on Exception
+     */
+    @Test
+    void recoverException_fail() {
+        //given
+        String userName = "로그예외_recoverException_fail";
+
+        //when
+        Assertions.assertThatThrownBy(() -> memberService.joinV2(userName))
+            .isInstanceOf(UnexpectedRollbackException.class);
+
+        //then
+        // 모든 데이터가 롤백 된다.
+        Assertions.assertThat(memberRepository.find(userName).isPresent()).isFalse();
+        Assertions.assertThat(logRepository.find(userName).isPresent()).isFalse();
+    }
+
+    /**
+     * memberService        @Transactional:on
+     * memberRepository     @Transactional:on
+     * logRepository        @Transactional:on(REQUIRES_NEW) Exception
+     */
+    @Test
+    void recoverException_success() {
+        //given
+        String userName = "로그예외_recoverException_success";
+
+        //when
+        memberService.joinV3(userName);
+
+        //then
+        // 모든 데이터가 롤백 된다.
+        Assertions.assertThat(memberRepository.find(userName).isPresent()).isTrue();
         Assertions.assertThat(logRepository.find(userName).isPresent()).isFalse();
     }
 }
